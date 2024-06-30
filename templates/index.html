@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Homepage</title>
+<link rel="stylesheet" href="static/css/index.css">
+{% endblock %}
+
+{% block content %}
+<div class="header">
+    <div class="header-img parallax-img"></div>
+</div>
+<section>
+    <h2>Welcome back, user!</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo tempore, impedit error, quo rem quaerat vitae adipisci eos, numquam soluta dolorem aut saepe quam. Officiis necessitatibus vitae nostrum odio assumenda?
+    Quasi optio assumenda culpa atque autem beatae labore impedit voluptatum. Qui dolores dolor, cum, vel distinctio id necessitatibus magni quia quisquam repellat delectus accusamus! Nemo, cumque blanditiis! Ipsum, nam numquam!
+    Mollitia perferendis animi voluptas reprehenderit, totam itaque voluptate fugiat deleniti nesciunt ut officia praesentium eum ratione? Consectetur ipsa fugiat iste quia nostrum id consequatur perspiciatis. Minima quas incidunt nihil hic.</p>
+</section>
+<script type="text/javascript">
+    var headerBg = document.querySelector('.parallax-img');
+    window.addEventListener("scroll", function () {
+        headerBg.style.opacity = 1 - +window.pageYOffset / 550 + '';
+        headerBg.style.top = window.pageYOffset / 3 + 'px';
+        headerBg.style.backgroundPositionY = - +window.pageYOffset / 3 + 'px';
+    });
+</script>
+{% endblock %}
