@@ -1,21 +1,40 @@
 {% extends 'base.html' %}
 {% block head %}
 <title>Homepage</title>
-<link rel="stylesheet" href="static/css/index.css">
+<link rel="stylesheet" href="static/css/index.css") }}">
 {% endblock %}
 
 {% block content %}
 <div class="header">
     <div class="header-img parallax-img"></div>
 </div>
-<section>
-    <h2>Welcome back, user!</h2>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo tempore, impedit error, quo rem quaerat vitae adipisci eos, numquam soluta dolorem aut saepe quam. Officiis necessitatibus vitae nostrum odio assumenda?
-    Quasi optio assumenda culpa atque autem beatae labore impedit voluptatum. Qui dolores dolor, cum, vel distinctio id necessitatibus magni quia quisquam repellat delectus accusamus! Nemo, cumque blanditiis! Ipsum, nam numquam!
-    Mollitia perferendis animi voluptas reprehenderit, totam itaque voluptate fugiat deleniti nesciunt ut officia praesentium eum ratione? Consectetur ipsa fugiat iste quia nostrum id consequatur perspiciatis. Minima quas incidunt nihil hic.</p>
+<section class="header-breaker">
+    <h2>Welcome back, Zhen Yu!</h2>
 </section>
+<section>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-sm-4 upcoming-header">
+                <h3>Upcoming Events</h3>
+                <p>
+                    <i class="upcoming-events-header">Remember to keep an eye out for upcoming calandar items so that you don't miss them</i>
+                </p>
+                <br>
+                <a href="#" class="btn btn-secondary btn-light btn-calander" role="button">View Calander</a>
+            </div>
+            <div class="col-sm-8">
+                <div class="btn-group-vertical upcoming-list" role="group" aria-label="Vertical button group">
+                    <button type="button" class="btn btn-primary upcoming-event event-high-prio">Example of a high-priority event</button>
+                    <button type="button" class="btn btn-primary upcoming-event event-med-prio">Example of a medium-priority event</button>
+                    <button type="button" class="btn btn-primary upcoming-event event-low-prio">Example of a low-priority event</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <script type="text/javascript">
-    var headerBg = document.querySelector('.parallax-img');
+    var headerBg = document.querySelector('.header-img');
     window.addEventListener("scroll", function () {
         headerBg.style.opacity = 1 - +window.pageYOffset / 550 + '';
         headerBg.style.top = window.pageYOffset / 3 + 'px';
