@@ -82,4 +82,20 @@ section p {
 /* CSS for to-do list */
 .todo-entry {
   padding: 10px 20px 10px 20px;
+}
+
+/* CSS for focus tools highlight */
+.focus-tool-highlight {
+  background-color: #e9e9e9;
+  color: #000;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.focus-tool-highlight h5 {
+  font-size: 1.8em;
+}
+
+.focus-desc {
+  font-size: 0.7em;
 }/*# sourceMappingURL=index.css.map */
