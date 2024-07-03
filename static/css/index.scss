@@ -1,40 +1,3 @@
-/* .parallax-img {
-    height: 100%;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.header {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-}
-
-.header-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("../img/landing.png");
-}
-
-section {
-    padding: 100px;
-}
-
-section h2 {
-    font-size: 3em;
-}
-
-section p {
-    font-size: 1.5em;
-} */
-
-
 .header {
     position: relative;
     width: 100%;
@@ -74,7 +37,7 @@ section p {
 }
 
 /* CSS for upcoming events section */
-.upcoming-events-header {
+.upcoming-header-content {
     font-size: 0.9em;
 }
 
@@ -87,7 +50,8 @@ section p {
 }
 
 .btn-calander, .upcoming-event {
-    margin: 20px;
+    margin: 10px;
+    border-radius: 6px 6px 6px 6px;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 20px;
@@ -113,4 +77,9 @@ section p {
 
 .event-low-prio {
     background: #00ff00;
+}
+
+/* CSS for to-do list */
+.todo-entry {
+    padding: 10px 20px 10px 20px;
 }
