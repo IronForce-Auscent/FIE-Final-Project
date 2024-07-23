@@ -31,6 +31,7 @@ section p {
 
 .upcoming-event {
   color: black;
+  min-width: 300px;
 }
 
 .upcoming-list {
@@ -52,6 +53,7 @@ section p {
 /* CSS for to-do list */
 .todo-entry {
   padding: 10px 20px 10px 20px;
+  min-width: 300px;
 }
 
 /* CSS for focus tools highlight */

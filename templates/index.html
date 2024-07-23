@@ -23,12 +23,23 @@
                 <a href="calander" class="btn btn-secondary btn-light btn-calander" role="button">View Calander</a>
             </div>
             <div class="col-sm-8">
-                <div class="btn-group-vertical upcoming-list" role="group" aria-label="Vertical button group">
+                <div class="btn-group-vertical upcoming-list" role="group" aria-label="Vertical button group"><!-- 
                     <button type="button" class="btn btn-secondary m-2 rounded upcoming-event event-high-prio">Example of a high-priority event</button>
                     <button type="button" class="btn btn-secondary m-2 rounded upcoming-event event-med-prio">Example of a medium-priority event</button>
                     <button type="button" class="btn btn-secondary m-2 rounded upcoming-event event-low-prio">Example of a low-priority event</button>
                     <button type="button" class="btn btn-secondary m-2 rounded upcoming-event event-high-prio">Example of a high-priority event</button>
-                    <button type="button" class="btn btn-secondary m-2 rounded upcoming-event event-med-prio">Example of a medium-priority event</button>
+                    <button type="button" class="btn btn-secondary m-2 rounded upcoming-event event-med-prio">Example of a medium-priority event</button> -->
+                    {% if calender_response %}
+                    {% for item in calender_response %}
+                    {% if item["priority"] == "high" %}
+                    <a href="calender" class="btn btn-secondary m-2 rounded upcoming-event event-high-prio">{{ item["title"] }}</a>
+                    {% elif item["priority"] == "medium" %}
+                    <a href="calender" class="btn btn-secondary m-2 rounded upcoming-event event-med-prio">{{ item["title"] }}</a>
+                    {% elif item["priority"] == "low" %}
+                    <a href="calender" class="btn btn-secondary m-2 rounded upcoming-event event-low-prio">{{ item["title"] }}</a>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -47,18 +58,14 @@
             </div>
             <div class="col-sm-8 todo-header">
                 <div class="btn-group-vertical todo-list-preview" role="group" aria-label="Vertical button group">
-                    <a href="#" class="btn btn-secondary m-2 rounded todo-entry">
+                    {% if todo_response %}
+                    {% for item in todo_response %}
+                    <a href="todo" class="btn btn-secondary m-2 rounded todo-entry">
                         <i class="bi bi-square"></i>
-                        Complete FIE website project
+                        {{ item["title"] }}
                     </a>
-                    <a href="#" class="btn btn-secondary m-2 rounded todo-entry">
-                        <i class="bi bi-square"></i>
-                        Meet up with Prime Minister
-                    </a>
-                    <a href="#" class="btn btn-secondary m-2 rounded todo-entry">
-                        <i class="bi bi-square"></i>
-                        Example To-Do Item 3
-                    </a>
+                    {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>

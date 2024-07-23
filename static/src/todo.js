@@ -9,10 +9,7 @@ function switchState(checkbox) {
 }
 
 function clearAll() {
-    var entries = document.getElementsByClassName('todo-entries');
-    for (var i = 0; i < entries.length; i++) {
-        entries[i].remove();
-    }
+    $.post("/todo/clear");
 }
 
 function removeItem() {

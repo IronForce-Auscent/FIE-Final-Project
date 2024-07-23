@@ -70,7 +70,11 @@ def query_data(category: str):
 @app.route("/")
 @app.route("/index")
 def index():
-    return render_template("index.html")
+    todo_data = json.loads(query_data("todo")[0][0])
+    calender_data = json.loads(query_data("calander")[0][0])
+    print(todo_data)
+    print(calender_data)
+    return render_template("index.html", todo_response = [value for _, value in todo_data.items()] if todo_data else [], calender_response = [value for _, value in calender_data.items()] if calender_data else [])
 
 @app.route("/calander")
 def calander():
@@ -93,6 +97,9 @@ def todo_method(method: str):
         elif method == "remove":
             id = request.form.get("id")
             remove_todo(str(id))
+        elif method == "clear":
+            # God bless all that data, hope you didn't need it
+            update_data({}, "todo")
     return redirect(url_for("todo"))
 
 if __name__ == "__main__":
