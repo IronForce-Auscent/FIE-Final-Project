@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block head %}
 <title>Homepage</title>
-<link rel="stylesheet" href="static/css/index.css") }}">
+<link rel="stylesheet" href="static/css/index.css">
 {% endblock %}
 
 {% block content %}
@@ -20,7 +20,7 @@
                     <i class="upcoming-header-content">Remember to keep an eye out for upcoming calandar items so that you don't miss them</i>
                 </p>
                 <br>
-                <a href="#" class="btn btn-secondary btn-light btn-calander" role="button">View Calander</a>
+                <a href="calander" class="btn btn-secondary btn-light btn-calander" role="button">View Calander</a>
             </div>
             <div class="col-sm-8">
                 <div class="btn-group-vertical upcoming-list" role="group" aria-label="Vertical button group">
@@ -43,7 +43,7 @@
                     <i class="todo-header-content">Check off some of your pending assignments and to-do items!</i>
                 </p>
                 <br>
-                <a href="#" class="btn btn-secondary btn-light btn-calander" role="button">View To-Do List</a>
+                <a href="todo" class="btn btn-secondary btn-light btn-calander" role="button">View To-Do List</a>
             </div>
             <div class="col-sm-8 todo-header">
                 <div class="btn-group-vertical todo-list-preview" role="group" aria-label="Vertical button group">
@@ -76,9 +76,10 @@
                     <h5>Pomodoro Timer</h5>
                     <div class="focus-desc">
                         <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate suscipit dolor quos distinctio amet maxime deserunt at architecto libero consequuntur officiis doloremque quae reprehenderit impedit, ratione magnam, eaque velit. Esse?
+                            A timer that follows the Pomodoro Technique, which involves working for 25 minutes and then taking a 5-minute break.
                         </p>
                     </div>
+                    <a href="#" class="btn btn-secondary">View Tool</a>
                 </div>
             </div>
             <div class="col-sm-4">
@@ -86,9 +87,10 @@
                     <h5>Goal Journal</h5>
                     <div class="focus-desc">
                         <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa minus possimus alias quibusdam repellat amet veniam? Inventore non porro possimus cumque vitae, molestiae blanditiis, soluta voluptas ipsum tempora, corrupti dignissimos.
+                            A tool to help you set and track your goals, as well as showcase your current progress.
                         </p>
-                    </div>
+                    </div> <br>
+                    <a href="#" class="btn btn-secondary">View Tool</a>
                 </div>
             </div>
             <div class="col-sm-4">
@@ -96,21 +98,17 @@
                     <h5>Flashcards and Quiz Maker</h5>
                     <div class="focus-desc">
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio odit laboriosam tenetur quaerat laborum iure, rem facere ea consectetur, aliquid voluptatibus, magnam molestias? Harum fuga recusandae temporibus facere ex impedit?
+                            A tool to help you study and memorize information using flashcards and quizzes. 
                         </p>
                     </div>
+                    <a href="#" class="btn btn-secondary">View Tool</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
+{% endblock %}
 
-<script type="text/javascript">
-    var headerBg = document.querySelector('.header-img');
-    window.addEventListener("scroll", function () {
-        headerBg.style.opacity = 1 - +window.pageYOffset / 550 + '';
-        headerBg.style.top = window.pageYOffset / 3 + 'px';
-        headerBg.style.backgroundPositionY = - +window.pageYOffset / 3 + 'px';
-    });
-</script>
+{% block script %}
+<script defer src="static/src/index.js"></script>
 {% endblock %}

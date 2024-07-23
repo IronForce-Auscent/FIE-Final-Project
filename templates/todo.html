@@ -5,5 +5,87 @@
 {% endblock %}
 
 {% block content %}
-<h3>Placeholder to-do list</h3>
+<div class="header">
+    <div class="header-img parallax-img"></div>
+</div>
+<section class="header-breaker text-center">
+    <h2>To-Do List</h2>
+</section>
+<section>
+    <div class="container">
+        <div class="todo-list">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="todo-base"></div>
+                    <div class="todo-entries">
+                        <!-- <div class="todo-entry" id="1">
+                            <i class="bi bi-square" onclick="switchState(this)"></i>
+                            <span>Complete FIE website project</span>
+                        </div>
+                        <div class="todo-entry" id="2">
+                            <i class="bi bi-square" onclick="switchState(this)"></i>
+                            <span>Meet up with Prime Minister</span>
+                        </div>
+                        <div class="todo-entry" id="3">
+                            <i class="bi bi-square" onclick="switchState(this)"></i>
+                            <span>Example To-Do Item 3</span>
+                        </div>
+                        <div class="todo-entry" id="4">
+                            <i class="bi bi-square" onclick="switchState(this)"></i>
+                            <span>Example To-Do Item 4</span>
+                        </div> -->
+                        {% if response %}
+                        {% for item in response %}
+                        <div class="todo-entry" id="{{ item['id'] }}">
+                            <i class="bi bi-square" onclick="switchState(this)">
+                                <span>{{ item["title"] }}</span>
+                            </i>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="todo-buttons">
+                        <button type="button" class="btn btn-secondary m-2 rounded todo-button" data-bs-toggle="modal" data-bs-target="#todoModel">Add To-Do Item</button>
+                        <button type="button" class="btn btn-secondary m-2 rounded todo-button" onclick="removeItem()">Remove Completed Items</button>
+                        <button type="button" class="btn btn-secondary m-2 rounded todo-button" onclick="clearAll()">Clear All Items</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="todoModel" tabindex="-1" aria-labelledby="todoModelLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="todoModelLabel">Add New Item</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newItem" action="/todo/add" method="post">
+                        <div class="mb-3">
+                            <label for="inputTaskName" class="form-label">Task Name</label>
+                            <input type="text" class="form-control" id="inputTaskName" name="taskName" aria-describedby="taskName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputTaskDescription" class="form-label">Task Description</label>
+                            <input type="text" class="form-control" name="taskDesc" id="inputTaskDescription">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block script %}
+
+<script defer src="static/src/todo.js"></script>
+
 {% endblock %}

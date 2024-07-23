@@ -9,3 +9,18 @@ body {
 .brand-logo {
     padding: 20px;
 }
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.name {
+    text-align: center;
+    color: green;
+}
+
+.dropdown-toggle {
+    background: none;
+    color: #000;
+    border: none;
+}
