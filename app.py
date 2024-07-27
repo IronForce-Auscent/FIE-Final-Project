@@ -10,7 +10,7 @@ import string
 app = Flask(__name__)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler('devenv.log')
+file_handler = logging.FileHandler('devenv.log', mode="w")
 file_handler.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 file_handler.setFormatter(formatter)
@@ -185,7 +185,6 @@ def index():
 
 @app.route("/calender")
 def calander():
-    calender_data = query_data("calander")
     return render_template("calender.html") 
 
 @app.route("/todo")
