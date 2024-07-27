@@ -32,11 +32,11 @@ def update_data(data: any, category: str) -> None:
     try:
         cursor.execute(f"UPDATE {TABLE_NAME} SET {category} = (?) WHERE username = (?)", (json.dumps(data), USERNAME_DEV))
         conn.commit()
-        logger.info(f"Inserted data {data} into category {category}")
+        logger.info(f"Inserted {len(str(data))} bytes into category {category}")
         conn.close()
         logger.info("Connection closed")
     except sqlite3.OperationalError as e:
-        logger.error(f"Error called when inserting data {data} into category {category}: {e}")
+        logger.error(f"Error called when inserting data into category {category}: {e}\nData was: {data}")
 
 def query_data(category: str) -> dict | list:
     conn, cursor = connect_db()
@@ -61,16 +61,19 @@ def add_todo(title: str, description: str):
     try:
         data = query_data("todo")
         new_id = len(data) + 1
-        data[new_id] = {"id": new_id, "title": title, "description": description, "status": "incomplete"}
+        new_entry = {"id": new_id, "title": title, "description": description, "status": "incomplete"}
+        data[new_id] = new_entry
         update_data(data, "todo")
+        logger.info(f"New todo added: {new_entry}")
     except sqlite3.OperationalError as e:
         logger.error(f"Error called when adding todo: {e}")
 
 def remove_todo(id):
     try:
         data = query_data("todo")
-        data.pop(id)
+        removed_entry = data.pop(id)
         update_data(data, "todo")
+        logger.info(f"Removed todo: {removed_entry}")
     except sqlite3.OperationalError as e:
         logger.error(f"Error called when removing todo: {e}")
 
@@ -111,6 +114,7 @@ def add_calender(title: str, description: str, date: str | list[str], event_type
         new_entry["id"] = entry_id
         data[new_id] = new_entry
         update_data(data, "calander")
+        logger.info(f"New calander event added: {new_entry}")
     except sqlite3.OperationalError as e:
         logger.error(f"Error called when adding calander event: {e}")
 
@@ -119,6 +123,7 @@ def remove_calender(id):
         data = query_data("calander")
         data.pop(id)
         update_data(data, "calander")
+        logger.info(f"Removed calander event with id {id}")
     except sqlite3.OperationalError as e:
         logger.error(f"Error called when removing calander event: {e}")
 

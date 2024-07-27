@@ -84,8 +84,8 @@
 </section>
 {% endblock %}
 
-{% block script %}
+{% block scripts %}
 
-<script defer src="static/src/todo.js"></script>
+<script defer src="{{ url_for('static', filename='src/todo.js') }}"></script>
 
 {% endblock %}
