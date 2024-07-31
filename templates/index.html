@@ -20,7 +20,7 @@
                     <i class="upcoming-header-content">Remember to keep an eye out for upcoming calandar items so that you don't miss them</i>
                 </p>
                 <br>
-                <a href="calander" class="btn btn-secondary btn-light btn-calander" role="button">View Calander</a>
+                <a href="calender" class="btn btn-secondary btn-light btn-calander" role="button">View Calander</a>
             </div>
             <div class="col-sm-8">
                 <div class="btn-group-vertical upcoming-list" role="group" aria-label="Vertical button group"><!-- 
@@ -32,11 +32,11 @@
                     {% if calender_response %}
                     {% for item in calender_response %}
                     {% if item["priority"] == "high" %}
-                    <a href="calender" class="btn btn-secondary m-2 rounded upcoming-event event-high-prio">{{ item["title"] }}</a>
+                    <a href="calender" class="btn btn-secondary m-2 rounded upcoming-event event-high-prio">{{ item["name"] }}</a>
                     {% elif item["priority"] == "medium" %}
-                    <a href="calender" class="btn btn-secondary m-2 rounded upcoming-event event-med-prio">{{ item["title"] }}</a>
+                    <a href="calender" class="btn btn-secondary m-2 rounded upcoming-event event-med-prio">{{ item["name"] }}</a>
                     {% elif item["priority"] == "low" %}
-                    <a href="calender" class="btn btn-secondary m-2 rounded upcoming-event event-low-prio">{{ item["title"] }}</a>
+                    <a href="calender" class="btn btn-secondary m-2 rounded upcoming-event event-low-prio">{{ item["name"] }}</a>
                     {% endif %}
                     {% endfor %}
                     {% endif %}

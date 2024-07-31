@@ -11,6 +11,7 @@ async function queryData() {
 document.addEventListener("DOMContentLoaded", async function() {
     $("#calendar").evoCalendar({
         theme: "Midnight Blue",
-        calendarEvents: await queryData()
+        calendarEvents: await queryData(),
+        todayHighlight: true
     });
 })
