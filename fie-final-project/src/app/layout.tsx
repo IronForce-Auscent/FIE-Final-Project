@@ -32,8 +32,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <ThemeProvider
           attribute="class"
-          defaultTheme="syetem"
-          enableSystem
+          defaultTheme="dark"
           disableTransitionOnChange
         >
           <div className="flex min-h-screen w-full flex-col">
