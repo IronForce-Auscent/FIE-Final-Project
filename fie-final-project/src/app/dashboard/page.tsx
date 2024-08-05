@@ -164,7 +164,7 @@ export default function Page() {
                 </TableRow>
                 <TableRow>
                   <TableCell>
-                    <div className="font-medium">Buy mom's birthday gift</div>
+                    <div className="font-medium">Buy mom&#39;s birthday gift</div>
                     <div className="hidden text-sm text-muted-foreground md:inline">
                       Budget $50 ( may increase? )
                     </div>
@@ -251,7 +251,7 @@ export default function Page() {
             <div className="flex items-center gap-4">
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">
-                  Mom's birthday
+                  Mom&#39;s birthday
                 </p>
                 <p className="text-sm text-muted-foreground">
                   Need to buy a gift for her

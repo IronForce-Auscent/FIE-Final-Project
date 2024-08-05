@@ -156,7 +156,7 @@ export default function Todo() {
                     <TableCell className="font-medium">
                       <Square />
                     </TableCell>
-                    <TableCell>Buy mom's birthday gift</TableCell>
+                    <TableCell>Buy mom&#39;s birthday gift</TableCell>
                     <TableCell>Personal</TableCell>
                     <TableCell className="text-right">
                       <DropdownMenu>
