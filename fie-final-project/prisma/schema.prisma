@@ -1,0 +1,23 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Event {
+  id        Int      @id @default(autoincrement())
+  name      String
+  date      DateTime
+  details   String?
+  createdAt DateTime @default(now())
+}
+
+model ToDo {
+  id   Int     @id @default(autoincrement())
+  name String
+  category String
+  done Boolean @default(false)
+}
