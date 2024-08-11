@@ -36,21 +36,12 @@ import {
 } from "@/components/ui/table";
 
 import { Metadata } from "next";
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
 
 export const metadata: Metadata = {
   title: "Main",
 };
 
-export default async function Page() {
-  const events = await prisma.event.findMany({
-    orderBy: {
-      date: 'asc',
-    },
-  });
-
+export default function Page() {
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
       <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
@@ -139,16 +130,16 @@ export default async function Page() {
                     </div>
                   </TableCell>
                   <TableCell className="text-right">
-
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <MoreHorizontal className="h-4 w-4" />
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuItem>View More</DropdownMenuItem>
-                        <DropdownMenuItem>Delete Item</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                    
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <MoreHorizontal className="h-4 w-4" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem>View More</DropdownMenuItem>
+                          <DropdownMenuItem>Delete Item</DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -159,16 +150,16 @@ export default async function Page() {
                     </div>
                   </TableCell>
                   <TableCell className="text-right">
-
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <MoreHorizontal className="h-4 w-4" />
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuItem>View More</DropdownMenuItem>
-                        <DropdownMenuItem>Delete Item</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                    
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <MoreHorizontal className="h-4 w-4" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem>View More</DropdownMenuItem>
+                          <DropdownMenuItem>Delete Item</DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -179,16 +170,16 @@ export default async function Page() {
                     </div>
                   </TableCell>
                   <TableCell className="text-right">
-
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <MoreHorizontal className="h-4 w-4" />
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuItem>View More</DropdownMenuItem>
-                        <DropdownMenuItem>Delete Item</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                    
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <MoreHorizontal className="h-4 w-4" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem>View More</DropdownMenuItem>
+                          <DropdownMenuItem>Delete Item</DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -201,16 +192,16 @@ export default async function Page() {
                     </div>
                   </TableCell>
                   <TableCell className="text-right">
-
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <MoreHorizontal className="h-4 w-4" />
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuItem>View More</DropdownMenuItem>
-                        <DropdownMenuItem>Delete Item</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                    
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <MoreHorizontal className="h-4 w-4" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem>View More</DropdownMenuItem>
+                          <DropdownMenuItem>Delete Item</DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -219,16 +210,16 @@ export default async function Page() {
                     <div className="hidden text-sm text-muted-foreground md:inline"></div>
                   </TableCell>
                   <TableCell className="text-right">
-
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <MoreHorizontal className="h-4 w-4" />
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuItem>View More</DropdownMenuItem>
-                        <DropdownMenuItem>Delete Item</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                    
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <MoreHorizontal className="h-4 w-4" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem>View More</DropdownMenuItem>
+                          <DropdownMenuItem>Delete Item</DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -248,21 +239,57 @@ export default async function Page() {
             </Button>
           </CardHeader>
           <CardContent className="grid gap-8">
-            {events.map((event) => (
-              <div key={event.id} className="flex items-center gap-4">
-                <div className="grid gap-1">
-                  <p className="text-sm font-medium leading-none">{event.name}</p>
-                  <p className="text-sm text-muted-foreground">{event.details}</p>
-                </div>
-                <div className="ml-auto font-medium">
-                  {new Date(event.date).toLocaleDateString('en-GB', {
-                    day: '2-digit',
-                    month: 'short',
-                    year: 'numeric',
-                  })}
-                </div>
+            <div className="flex items-center gap-4">
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Math exam</p>
+                <p className="text-sm text-muted-foreground">
+                  Covering topics 1-10
+                </p>
               </div>
-            ))}
+              <div className="ml-auto font-medium">13 Aug 2024</div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">
+                  Mom&#39;s birthday
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Need to buy a gift for her
+                </p>
+              </div>
+              <div className="ml-auto font-medium">10 Aug 2024</div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">
+                  FIE group project presentation
+                </p>
+                <p className="text-sm text-muted-foreground"></p>
+              </div>
+              <div className="ml-auto font-medium">27 Aug 2024</div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">
+                  Class pizza party
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Wei Kiat buying pizza, venue TBD
+                </p>
+              </div>
+              <div className="ml-auto font-medium">15 Aug 2024</div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">
+                  Hoyofest 2024
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Full-day event, going with Ryo and Ichinose
+                </p>
+              </div>
+              <div className="ml-auto font-medium">12 - 18 Aug 2024</div>
+            </div>
           </CardContent>
         </Card>
       </div>

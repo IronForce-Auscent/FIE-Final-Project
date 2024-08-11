@@ -53,12 +53,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   Dashboard
                 </Link>
                 <Link
-                      href="/services/create-event"
-                      className="text-muted-foreground hover:text-foreground"
-                    >
-                      Create Event
-                    </Link>
-                <Link
                   href="/services/calendar"
                   className="text-muted-foreground transition-colors hover:text-foreground"
                 >
@@ -99,12 +93,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     </Link>
                     <Link href="/" className="text-muted-foreground hover:text-foreground">
                       Dashboard
-                    </Link>
-                    <Link
-                      href="/services/create-event"
-                      className="text-muted-foreground hover:text-foreground"
-                    >
-                      Create Event
                     </Link>
                     <Link
                       href="/services/calendar"

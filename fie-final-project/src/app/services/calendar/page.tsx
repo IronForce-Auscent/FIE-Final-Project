@@ -21,8 +21,25 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { CirclePlus } from "lucide-react";
+import { CirclePlus, CalendarIcon } from "lucide-react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { cn } from "@/lib/utils"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
 interface Event {
   id: number;
@@ -31,14 +48,68 @@ interface Event {
   details: string;
 }
 
+const formSchema = z.object({
+  taskName: z
+    .string()
+    .min(1, {
+      message: "Task name is required",
+    })
+    .max(25, {
+      message: "Task name must be less than 25 characters",
+    }),
+  taskDescription: z.string().max(50, {
+    message: "Task description must be less than 50 characters",
+  }),
+  taskType: z.enum(["personal", "social", "work", "school", "others"], {
+    message: "Task type is required",
+  }),
+});
 
 export default function CalendarPage() {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [clickedDate, setClickedDate] = useState<Date | null>(null);
-  const [events, setEvents] = useState<Event[]>([]);
+  /*   const [events, setEvents] = useState<Event[]>([]); */
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const events = [
+    {
+      id: 2,
+      name: "Mom's birthday",
+      date: "2024-08-10T00:00:00.000Z",
+      details: "",
+      createdAt: "2024-08-09T03:59:25.258Z",
+    },
+    {
+      id: 1,
+      name: "Math test",
+      date: "2024-08-13T00:00:00.000Z",
+      details: "Chapters 1-10",
+      createdAt: "2024-08-09T03:59:06.781Z",
+    },
+    {
+      id: 4,
+      name: "Class bonding activity",
+      date: "2024-08-15T00:00:00.000Z",
+      details: "",
+      createdAt: "2024-08-09T04:00:04.334Z",
+    },
+    {
+      id: 3,
+      name: "Group project presentation",
+      date: "2024-08-27T00:00:00.000Z",
+      details: "Complete final prototype and slides 2 weeks before",
+      createdAt: "2024-08-09T03:59:52.981Z",
+    },
+  ];
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      taskName: "",
+      taskDescription: "",
+      taskType: "others",
+    },
+  });
 
-  useEffect(() => {
+  /*   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const response = await fetch("/api/calendar");
@@ -54,7 +125,7 @@ export default function CalendarPage() {
     };
 
     fetchEvents();
-  }, []);
+  }, []); */
 
   const handleDateClick = (clickedDate: Date) => {
     setClickedDate(clickedDate);
@@ -98,6 +169,124 @@ export default function CalendarPage() {
                     {clickedDate
                       ? clickedDate.toDateString()
                       : "No Date Selected"}
+                  </div>
+                  <div className="float-right">
+                    <Dialog>
+                      <DialogTrigger>
+                        <Button type="button" variant="secondary">
+                          Add Item
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>Add New Event</DialogTitle>
+                        </DialogHeader>
+                        <Form {...form}>
+                          <form className="w-2/3 space-y-6 p-8">
+                            <FormField
+                              name="taskName"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Event Name</FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      placeholder="e.g. Math test"
+                                      {...field}
+                                    />
+                                  </FormControl>
+                                  <FormDescription>
+                                    This is the name of the event you are
+                                    attending
+                                  </FormDescription>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              name="taskDescription"
+                              render={({ field }) => (
+                                <FormItem className="flex flex-col">
+                                  <FormLabel>Date of Event</FormLabel>
+                                  <Popover>
+                                    <PopoverTrigger asChild>
+                                      <FormControl>
+                                        <Button
+                                          variant={"outline"}
+                                          className={cn(
+                                            "w-[240px] pl-3 text-left font-normal",
+                                            !field.value &&
+                                              "text-muted-foreground"
+                                          )}
+                                        >
+                                          {field.value ? (
+                                            field.value.toDateString()
+                                          ) : (
+                                            <span>Pick a date</span>
+                                          )}
+                                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                        </Button>
+                                      </FormControl>
+                                    </PopoverTrigger>
+                                    <PopoverContent
+                                      className="w-auto p-0"
+                                      align="start"
+                                    >
+                                      <Calendar
+                                        mode="single"
+                                        selected={field.value}
+                                        onSelect={field.onChange}
+                                        initialFocus
+                                      />
+                                    </PopoverContent>
+                                  </Popover>
+                                  <FormDescription>
+                                    The date of your event
+                                  </FormDescription>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              name="taskName"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Event Type</FormLabel>
+                                  <Select>
+                                    <FormControl>
+                                      <SelectTrigger className="w-[180px]">
+                                        <SelectValue placeholder="Category" />
+                                      </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                      <SelectItem value="personal">
+                                        Personal
+                                      </SelectItem>
+                                      <SelectItem value="social">
+                                        Social
+                                      </SelectItem>
+                                      <SelectItem value="work">Work</SelectItem>
+                                      <SelectItem value="school">
+                                        School
+                                      </SelectItem>
+                                      <SelectItem value="others">
+                                        Others
+                                      </SelectItem>
+                                    </SelectContent>
+                                  </Select>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <Button
+                              type="submit"
+                              className="bg-sky-500 hover:bg-sky-700"
+                            >
+                              Submit
+                            </Button>
+                          </form>
+                        </Form>
+                      </DialogContent>
+                    </Dialog>
                   </div>
                 </CardTitle>
               </CardHeader>

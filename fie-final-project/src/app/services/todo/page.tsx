@@ -52,61 +52,47 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Label } from "@/components/ui/label";
 
 import { MoreHorizontal, Square, SquareCheck } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { TodoDropdown } from "@/components/todo-dropdown";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 
-interface Todo {
-  id: number;
-  name: string;
-  category: string;
-}
+const formSchema = z.object({
+  taskName: z
+    .string()
+    .min(1, {
+      message: "Task name is required",
+    })
+    .max(25, {
+      message: "Task name must be less than 25 characters",
+    }),
+  taskDescription: z.string().max(50, {
+    message: "Task description must be less than 50 characters",
+  }),
+  taskType: z.enum(["personal", "social", "work", "school", "others"], {
+    message: "Task type is required",
+  }),
+});
 
 export default function Todo() {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
+  // 1. Define your form.
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      taskName: "",
+      taskDescription: "",
+      taskType: "others",
+    },
+  });
   const [open, setOpen] = useState(false);
-  const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const response = await fetch("/api/todo", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, category }),
-    });
-
-    if (response.ok) {
-      console.log("Redirecting to /services/todo");
-      router.push("/services/todo");
-    } else {
-      alert("Failed to create todo");
-    }
-  };
-
-  useEffect(() => {
-    const fetchTodos = async () => {
-      try {
-        const response = await fetch("/api/todo");
-        if (response.ok) {
-          const data = await response.json();
-          setTodos(data);
-        } else {
-          console.error("Failed to fetch todos");
-        }
-      } catch (error) {
-        console.error("Error fetching todos:", error);
-      }
-    };
-
-    fetchTodos();
-  }, []);
+  // 2. Define a submit handler.
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+  }
 
   return (
     <div className="grid w-full">
@@ -128,60 +114,170 @@ export default function Todo() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {todos.map((todo) => (
-                    <TableRow key={todo.id}>
-                      <TableCell className="font-medium">
-                        <Square />
-                      </TableCell>
-                      <TableCell>{todo.name}</TableCell>
-                      <TableCell>{todo.category}</TableCell>
-                      <TableCell className="text-right">
-                        <TodoDropdown></TodoDropdown>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  <TableRow>
+                    <TableCell className="font-medium">
+                      <Square />
+                    </TableCell>
+                    <TableCell>Finish project ppt</TableCell>
+                    <TableCell>School</TableCell>
+                    <TableCell className="text-right">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <MoreHorizontal className="h-4 w-4" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem>View More</DropdownMenuItem>
+                          <DropdownMenuItem>Delete Item</DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="font-medium">
+                      <Square />
+                    </TableCell>
+                    <TableCell>Study for math test</TableCell>
+                    <TableCell>School</TableCell>
+                    <TableCell className="text-right">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <MoreHorizontal className="h-4 w-4" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem>View More</DropdownMenuItem>
+                          <DropdownMenuItem>Delete Item</DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="font-medium">
+                      <Square />
+                    </TableCell>
+                    <TableCell>Buy mom&#39;s birthday gift</TableCell>
+                    <TableCell>Personal</TableCell>
+                    <TableCell className="text-right">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <MoreHorizontal className="h-4 w-4" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem>View More</DropdownMenuItem>
+                          <DropdownMenuItem>Delete Item</DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="font-medium">
+                      <Square />
+                    </TableCell>
+                    <TableCell>Buy drinks for class party</TableCell>
+                    <TableCell>Social</TableCell>
+                    <TableCell className="text-right">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <MoreHorizontal className="h-4 w-4" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem>View More</DropdownMenuItem>
+                          <DropdownMenuItem>Delete Item</DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
                 </TableBody>
               </Table>
               <div className="w-48 max-w-48 space-y-2">
-                <Dialog>
+                <Dialog> 
                   <DialogTrigger>
-                    <Button type="button" variant="secondary">
-                      Add Item
-                    </Button>
+                    <Button type="button" variant="secondary">Add Item</Button>
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
                       <DialogTitle>Add New Item</DialogTitle>
                     </DialogHeader>
-                    <form
-                      onSubmit={handleSubmit}
-                      className="flex flex-col space-y-4 p-4"
-                    >
-                      <input
-                        type="text"
-                        placeholder="Event Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        className="border p-2"
-                      ></input>
-                      <textarea
-                        placeholder="Event Details"
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                        className="border p-2"
-                      ></textarea>
-                      <button
-                        type="submit"
-                        className="bg-blue-500 text-white p-2"
+                    <Form {...form}>
+                      <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="w-2/3 space-y-6 p-8"
                       >
-                        Create Event
-                      </button>
-                    </form>
+                        <FormField
+                          control={form.control}
+                          name="taskName"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Task Name</FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="e.g. Study for test"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormDescription>
+                                This is the name of the task you want to
+                                complete.
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="taskDescription"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Task Description</FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="e.g. Study for math test, chapters 1-10"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormDescription>
+                                Describe the task you want to do
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="taskName"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Task Type</FormLabel>
+                              <Select>
+                                <FormControl>
+                                  <SelectTrigger className="w-[180px]">
+                                    <SelectValue placeholder="Category" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="personal">
+                                    Personal
+                                  </SelectItem>
+                                  <SelectItem value="social">Social</SelectItem>
+                                  <SelectItem value="work">Work</SelectItem>
+                                  <SelectItem value="school">School</SelectItem>
+                                  <SelectItem value="others">Others</SelectItem>
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <Button type="submit" className="bg-sky-500 hover:bg-sky-700">Submit</Button>
+                      </form>
+                    </Form>
                   </DialogContent>
                 </Dialog>
-                <Button variant="secondary">Mark SELECTED as done</Button>
-                <Button variant="secondary">Mark ALL as done</Button>
+                <Button variant="secondary">
+                  Mark SELECTED as done
+                </Button>
+                <Button variant="secondary">
+                  Mark ALL as done
+                </Button>
               </div>
             </div>
           </CardContent>
